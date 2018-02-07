@@ -1,0 +1,21 @@
+language: python
+python:
+  - 3.6
+  - nightly
+install:
+  - pip install -r requirements/dev.txt
+script:
+  - nosetests --with-cov --cov-config .coveragerc
+after_success:
+  - codecov
+jobs:
+  include:
+    - stage: Deploy
+      script: skip
+      deploy:
+        provider: heroku
+        api_key:
+          secure: Gxh4bdmoZ0Ak9/fEnrx0yQzczeVh1jNzPhBbA43UvEcLXkC+2VR7hwZoKeUKONuONeB4j4KWq5VBzh+q6RBabT3+qDNuU9BQWUchTXhIKOmQHpyBJ27V2X2K0sOExss4V9zEfbZFC6vXGfmLNIutI99q8bm/VWSrDY5crkP2Ry4cgQdhzjZpiRr5ZGkE6VQ1TB5JOkWQn31tZuGVIrQT+t0JoNNBYvVYhvVUnzTlhZg7f4R+AstUZ1KALNhFdDR9A5HIRVmJlRLvzAUfUQXQnpmoznGRjhCUB4kTdH6ei+LEj6LTAZTsOnnMfBgtyIOa2+ic0ID7Gihz25qZXrh/YOCZMtHYU8TKITYjMMZITej4OqnQxLPQ8Ulb0CnoAM65tS3pqTAg3wQo8j+Mqd0wjZIGxXDxHIgCwtoNdnDyvt6pBj33IclViDN91Ec1XTewj1QO8Rs6XJv6TjchB8aBbMh18zYVI7c8yRnqTtvq2ptxvMq5t9lLI440GRRyqfCIGCjtLjoWyPGtnrbXrwdfoFeToJb3946a7xAidb+bbRrIojFYkclBLPjA1LqzrkLkWpk5vGmpG2k9dxrONzqDT7398Zh6bEH3x88KqQPLiE3s577lSyLm3njxt1QBNyOd8xWRZlG1kyhvwLC/GpVUK5+5r6wUNwNqMIt3+5I0KOc=
+        app: ci-demo-lyon
+        on:
+          repo: T-Dahg/ci_workshop
